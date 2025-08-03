@@ -1,0 +1,638 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Backlit Glass Tiles · 5×3 · Pure CSS + Modern Conditionals</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <style>
+      /* Typed custom properties for smoother interpolation */
+      @property --play {
+        syntax: "<number>";
+        inherits: true;
+        initial-value: 1;
+      }
+      @property --fx {
+        syntax: "<number>";
+        inherits: true;
+        initial-value: 1; /* 1 = high effects */
+      }
+      @property --glow {
+        syntax: "<number>";
+        inherits: true;
+        initial-value: 1;
+      }
+
+      :root {
+        /* Feature flags */
+        --fx: 1; /* high effects on */
+        --play: 1; /* spinning on */
+
+        /* Theme: chrome + glass + gems */
+        --bg: #0b0f15;
+        --glass-1: #0e131c;
+        --glass-2: #080b11;
+        --chrome-a: #fbfcff;
+        --chrome-b: #e7edf6;
+        --chrome-c: #c6cfdb;
+        --chrome-d: #8a99ad;
+        --chrome-e: #3c4657;
+        --rim: rgba(255, 255, 255, 0.55);
+        --rim-dark: rgba(0, 0, 0, 0.62);
+
+        --ruby: #e11239;
+        --ruby-soft: #ff5a78;
+        --emerald: #0f8b6e;
+        --emerald-soft: #45d1ab;
+        --gold: #f2c14e;
+        --ivory: #efe8d8;
+
+        /* Tile surface */
+        --tile: #0f1420;
+        --tile-edge: #1b2230;
+        --tile-top: #121a27;
+
+        /* Text */
+        --txt: #eaf1f9;
+        --muted: #9fb0c4;
+
+        /* Motion + rhythm */
+        --steps: 24; /* steps() for tick feel */
+        --speed-1: 2.7s;
+        --speed-2: 2.5s;
+        --speed-3: 2.8s;
+        --speed-4: 2.45s;
+        --speed-5: 2.65s;
+        --delay-1: 0s;
+        --delay-2: 0.12s;
+        --delay-3: 0.24s;
+        --delay-4: 0.36s;
+        --delay-5: 0.48s;
+
+        /* Backlight intensity (conditional with if()) */
+        --glow: if(var(--fx) = 1, 1, 0.6);
+      }
+
+      /* Respect reduced motion */
+      @media (prefers-reduced-motion: reduce) {
+        :root {
+          --speed-1: 12s;
+          --speed-2: 12s;
+          --speed-3: 12s;
+          --speed-4: 12s;
+          --speed-5: 12s;
+        }
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        height: 100%;
+      }
+      body {
+        margin: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 20px;
+        background: radial-gradient(
+            1400px 900px at 15% -10%,
+            #121827 0%,
+            transparent 60%
+          ),
+          radial-gradient(
+            1400px 900px at 100% 120%,
+            #0b111a 0%,
+            transparent 70%
+          ),
+          var(--bg);
+        color: var(--txt);
+        font: 16px/1.5 ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto,
+          "Helvetica Neue", Arial;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+      }
+
+      /* Chrome cabinet with mirror strips */
+      .cabinet {
+        width: min(1020px, 96vw);
+        border-radius: 18px;
+        padding: 20px;
+        position: relative;
+        overflow: hidden;
+        background: linear-gradient(
+          135deg,
+          var(--chrome-a),
+          var(--chrome-b) 26%,
+          var(--chrome-c) 52%,
+          var(--chrome-d) 74%,
+          var(--chrome-e) 92%,
+          var(--chrome-a) 100%
+        );
+        border: 1px solid var(--rim);
+        box-shadow: inset 0 2px 0 rgba(255, 255, 255, 0.9),
+          inset 0 -2px 0 rgba(0, 0, 0, 0.4),
+          inset 0 0 0 2px rgba(255, 255, 255, 0.14),
+          0 24px 64px rgba(0, 0, 0, 0.55), 0 6px 16px rgba(0, 0, 0, 0.45);
+      }
+      .cabinet::after {
+        content: "";
+        position: absolute;
+        inset: 8px;
+        border-radius: 12px;
+        pointer-events: none;
+        box-shadow: inset 0 0 0 1px var(--rim-dark),
+          inset 0 0 0 4px rgba(255, 255, 255, 0.05),
+          inset 0 12px 28px -10px rgba(255, 255, 255, 0.35),
+          inset 0 -12px 28px -10px rgba(255, 255, 255, 0.35),
+          inset 12px 0 28px -10px rgba(255, 255, 255, 0.25),
+          inset -12px 0 28px -10px rgba(255, 255, 255, 0.25);
+      }
+
+      /* Marquee */
+      .marquee {
+        border-radius: 12px;
+        border: 1px solid rgba(0, 0, 0, 0.6);
+        padding: 14px 16px;
+        text-align: center;
+        position: relative;
+        overflow: hidden;
+        background: linear-gradient(
+            180deg,
+            rgba(255, 255, 255, 0.06),
+            rgba(0, 0, 0, 0.55)
+          ),
+          conic-gradient(
+            from 0deg at 50% 100%,
+            var(--ruby) 0 16%,
+            var(--emerald) 16% 32%,
+            var(--ruby) 32% 48%,
+            var(--emerald) 48% 64%,
+            var(--ruby) 64% 80%,
+            var(--emerald) 80% 100%
+          );
+      }
+      .marquee h1 {
+        margin: 0;
+        font: 800 clamp(18px, 4vw, 28px) / 1.1 "Cinzel", "Times New Roman",
+          serif;
+        letter-spacing: 0.08em;
+        text-shadow: 0 2px 0 rgba(0, 0, 0, 0.6),
+          0 0 calc(16px * var(--glow)) rgba(225, 18, 57, 0.35);
+      }
+      .marquee p {
+        margin: 6px 0 0;
+        color: #eef3fb;
+        opacity: 0.9;
+        font-size: 14px;
+      }
+
+      /* Game window (smoky glass with inset edges — see glass best practice using inset shadows [tyleo.com]) */
+      .window {
+        margin-top: 14px;
+        border-radius: 12px;
+        border: 1px solid rgba(0, 0, 0, 0.6);
+        overflow: hidden;
+        position: relative;
+        background: radial-gradient(
+            120% 140% at 50% -20%,
+            rgba(255, 255, 255, 0.05),
+            transparent 40%
+          ),
+          linear-gradient(180deg, var(--glass-1), var(--glass-2));
+        padding: 16px;
+        box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06),
+          inset 0 -1px 0 rgba(0, 0, 0, 0.62), 0 12px 28px rgba(0, 0, 0, 0.55);
+      }
+
+      /* 5×3 grid area (reels) */
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(5, 1fr);
+        gap: 12px;
+        height: 260px;
+      }
+
+      /* Reel container */
+      .reel {
+        position: relative;
+        border-radius: 12px;
+        overflow: hidden;
+        background: linear-gradient(
+          180deg,
+          rgba(255, 255, 255, 0.03),
+          rgba(0, 0, 0, 0.42)
+        );
+        box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06),
+          inset 0 -1px 0 rgba(0, 0, 0, 0.55);
+        /* subtle bevel lines */
+        outline: 1px solid #141b28;
+      }
+
+      /* Track that scrolls symbols; steps() for tick */
+      .track {
+        position: absolute;
+        inset: 0 auto auto 0;
+        right: 0;
+        top: 0;
+        display: grid;
+        gap: 12px;
+        padding: 12px;
+        animation-name: spin;
+        animation-timing-function: steps(var(--steps), end);
+        animation-iteration-count: infinite;
+        animation-play-state: paused; /* bound to --play below */
+      }
+
+      /* Per-reel speed + delay */
+      .reel:nth-child(1) .track {
+        animation-duration: var(--speed-1);
+        animation-delay: var(--delay-1);
+      }
+      .reel:nth-child(2) .track {
+        animation-duration: var(--speed-2);
+        animation-delay: var(--delay-2);
+      }
+      .reel:nth-child(3) .track {
+        animation-duration: var(--speed-3);
+        animation-delay: var(--delay-3);
+      }
+      .reel:nth-child(4) .track {
+        animation-duration: var(--speed-4);
+        animation-delay: var(--delay-4);
+      }
+      .reel:nth-child(5) .track {
+        animation-duration: var(--speed-5);
+        animation-delay: var(--delay-5);
+      }
+
+      /* Bind play/pause via CSS state */
+      .machine {
+        --play: 1;
+      }
+      .controls:has(#play:not(:checked)) ~ .window .machine {
+        --play: 0;
+      }
+
+      .machine .track {
+        animation-play-state: if(var(--play) = 1, running, paused);
+        /* Fallback for older browsers: uncomment the next line to always run */
+        /* animation-play-state: running; */
+      }
+
+      @keyframes spin {
+        0% {
+          transform: translateY(0);
+        }
+        100% {
+          transform: translateY(-50%);
+        }
+      }
+
+      /* Backlit glass tile symbol */
+      .symbol {
+        height: calc((260px - 24px - 24px) / 3);
+        min-height: 62px;
+        border-radius: 10px;
+        position: relative;
+        overflow: hidden;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 800;
+        letter-spacing: 0.06em;
+        color: #fff;
+        text-shadow: 0 1px 0 rgba(0, 0, 0, 0.6);
+        background: linear-gradient(180deg, var(--tile-top), var(--tile));
+        /* frosted edges using inset shadows (no borders, per glass UI practice [tyleo.com]) */
+        box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.12),
+          inset 0 -1px 0 rgba(0, 0, 0, 0.5),
+          0 0 calc(20px * var(--glow)) rgba(69, 209, 171, 0.12); /* base bloom */
+      }
+      /* Inner frost ring and light grid refraction */
+      .symbol::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        border-radius: inherit;
+        pointer-events: none;
+        box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.06),
+          inset 0 0 0 6px rgba(255, 255, 255, 0.02);
+        background: linear-gradient(
+              90deg,
+              rgba(255, 255, 255, 0.04) 1px,
+              transparent 1px
+            )
+            0 0/ 16px 100%,
+          linear-gradient(0deg, rgba(255, 255, 255, 0.04) 1px, transparent 1px)
+            0 0/ 100% 16px;
+        opacity: if(var(--fx) = 1, 0.35, 0.18);
+        mix-blend-mode: screen;
+      }
+      /* Backlight core per symbol type */
+      .ruby {
+        background: radial-gradient(
+            140% 100% at 50% 0%,
+            rgba(255, 255, 255, 0.1),
+            transparent 60%
+          ),
+          linear-gradient(
+            180deg,
+            #24050b,
+            #3b0913 35%,
+            #5c0e1d 60%,
+            #24050b 100%
+          );
+        box-shadow: 0 0 calc(24px * var(--glow)) rgba(225, 18, 57, 0.35),
+          inset 0 0 24px rgba(225, 18, 57, 0.18);
+      }
+      .ruby::after {
+        content: "";
+        position: absolute;
+        inset: -10% -10% auto -10%;
+        height: 60%;
+        pointer-events: none;
+        background: radial-gradient(
+            200px 120px at 50% 0%,
+            rgba(255, 255, 255, 0.42),
+            transparent 60%
+          ),
+          radial-gradient(
+            260px 140px at 55% -5%,
+            rgba(225, 18, 57, 0.45),
+            transparent 70%
+          ),
+          radial-gradient(
+            220px 120px at 45% 5%,
+            rgba(255, 90, 120, 0.35),
+            transparent 65%
+          );
+        mix-blend-mode: screen;
+        opacity: if(var(--fx) = 1, 0.9, 0.65);
+      }
+
+      .emerald {
+        color: #eafff9;
+        background: radial-gradient(
+            140% 100% at 50% 0%,
+            rgba(255, 255, 255, 0.1),
+            transparent 60%
+          ),
+          linear-gradient(
+            180deg,
+            #062118,
+            #0a2e24 35%,
+            #104a3b 60%,
+            #062118 100%
+          );
+        box-shadow: 0 0 calc(22px * var(--glow)) rgba(69, 209, 171, 0.3),
+          inset 0 0 22px rgba(69, 209, 171, 0.18);
+      }
+      .emerald::after {
+        content: "";
+        position: absolute;
+        inset: -10% -10% auto -10%;
+        height: 60%;
+        pointer-events: none;
+        background: radial-gradient(
+            220px 130px at 50% 0%,
+            rgba(255, 255, 255, 0.36),
+            transparent 60%
+          ),
+          radial-gradient(
+            260px 140px at 60% -6%,
+            rgba(69, 209, 171, 0.35),
+            transparent 70%
+          );
+        mix-blend-mode: screen;
+        opacity: if(var(--fx) = 1, 0.85, 0.6);
+      }
+
+      .gold {
+        color: #2b1b00;
+        background: linear-gradient(
+          180deg,
+          #43310b,
+          #6b4d14 40%,
+          #946f1f 60%,
+          #43310b 100%
+        );
+        box-shadow: 0 0 calc(16px * var(--glow)) rgba(242, 193, 78, 0.28),
+          inset 0 0 18px rgba(242, 193, 78, 0.2);
+      }
+      .bar {
+        color: #e8eef7;
+        background: linear-gradient(180deg, #0e1724, #122033 50%, #0e1724 100%);
+        box-shadow: 0 0 calc(12px * var(--glow)) rgba(234, 241, 249, 0.18),
+          inset 0 0 14px rgba(0, 0, 0, 0.35);
+      }
+      .seven {
+        color: #fff;
+        background: linear-gradient(180deg, #280a0a, #4b1212 45%, #280a0a 100%);
+        box-shadow: 0 0 calc(20px * var(--glow)) rgba(225, 18, 57, 0.22),
+          inset 0 0 16px rgba(225, 18, 57, 0.16);
+      }
+      .star {
+        color: #fff5bf;
+        background: linear-gradient(180deg, #171717, #212121 50%, #171717 100%);
+        box-shadow: 0 0 calc(18px * var(--glow)) rgba(255, 245, 191, 0.22),
+          inset 0 0 14px rgba(255, 245, 191, 0.14);
+      }
+
+      /* Center payline glow under tiles */
+      .payline {
+        position: absolute;
+        left: 16px;
+        right: 16px;
+        top: 50%;
+        transform: translateY(-50%);
+        height: 2px;
+        background: linear-gradient(
+          90deg,
+          var(--ruby) 0,
+          var(--emerald) 50%,
+          var(--ruby) 100%
+        );
+        box-shadow: 0 0 10px rgba(225, 18, 57, 0.35);
+        opacity: 0.85;
+        pointer-events: none;
+      }
+
+      /* Controls: pure CSS toggle */
+      .controls {
+        margin-top: 12px;
+        display: flex;
+        gap: 16px;
+        align-items: center;
+        justify-content: center;
+        color: var(--muted);
+        font-size: 14px;
+      }
+      .switch {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        user-select: none;
+        cursor: pointer;
+      }
+      .switch input {
+        position: absolute;
+        opacity: 0;
+        pointer-events: auto;
+      }
+      .pill {
+        width: 48px;
+        height: 26px;
+        border-radius: 999px;
+        border: 1px solid rgba(0, 0, 0, 0.4);
+        background: linear-gradient(180deg, #e7edf6, #c6cfdb);
+        position: relative;
+        box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.8);
+      }
+      .knob {
+        position: absolute;
+        top: 2px;
+        left: 2px;
+        width: 22px;
+        height: 22px;
+        border-radius: 999px;
+        background: linear-gradient(180deg, #fff, #dfe6f1);
+        box-shadow: 0 1px 2px rgba(0, 0, 0, 0.35);
+        transition: transform 0.25s ease;
+      }
+      #play:checked + .pill .knob {
+        transform: translateX(22px);
+      }
+
+      /* Responsive */
+      @media (max-width: 760px) {
+        .grid {
+          height: 220px;
+        }
+        .symbol {
+          min-height: 56px;
+          height: calc((220px - 24px - 24px) / 3);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="cabinet">
+      <div class="marquee">
+        <h1>Backlit Glass · 5×3</h1>
+        <p>Pure CSS reels • if() conditionals • @property typed vars • no JS</p>
+      </div>
+
+      <!-- Controls placed before window so :has() can affect .window siblings -->
+      <div class="controls">
+        <label class="switch" title="Toggle spin (CSS only)">
+          <input id="play" type="checkbox" checked />
+          <span class="pill"><span class="knob"></span></span>
+          <span>Spin</span>
+        </label>
+        <span
+          >FX: <code>if(var(--fx) = 1)</code> • Step snap:
+          <code>steps(var(--steps))</code></span
+        >
+      </div>
+
+      <div class="window">
+        <div class="payline" aria-hidden="true"></div>
+
+        <div class="machine" aria-label="5 reels by 3 rows, visual demo only">
+          <div class="grid">
+            <!-- Reel 1 -->
+            <div class="reel">
+              <div class="track">
+                <div class="symbol ruby">RUBY</div>
+                <div class="symbol emerald">EMRLD</div>
+                <div class="symbol gold">BELL</div>
+                <div class="symbol bar">BAR</div>
+                <div class="symbol seven">7</div>
+                <div class="symbol star">★</div>
+                <!-- repeat for loop continuity -->
+                <div class="symbol ruby">RUBY</div>
+                <div class="symbol emerald">EMRLD</div>
+              </div>
+            </div>
+
+            <!-- Reel 2 -->
+            <div class="reel">
+              <div class="track">
+                <div class="symbol bar">BAR</div>
+                <div class="symbol seven">7</div>
+                <div class="symbol ruby">RUBY</div>
+                <div class="symbol emerald">EMRLD</div>
+                <div class="symbol gold">BELL</div>
+                <div class="symbol star">★</div>
+                <div class="symbol bar">BAR</div>
+                <div class="symbol seven">7</div>
+              </div>
+            </div>
+
+            <!-- Reel 3 -->
+            <div class="reel">
+              <div class="track">
+                <div class="symbol gold">BELL</div>
+                <div class="symbol ruby">RUBY</div>
+                <div class="symbol emerald">EMRLD</div>
+                <div class="symbol star">★</div>
+                <div class="symbol seven">7</div>
+                <div class="symbol bar">BAR</div>
+                <div class="symbol gold">BELL</div>
+                <div class="symbol ruby">RUBY</div>
+              </div>
+            </div>
+
+            <!-- Reel 4 -->
+            <div class="reel">
+              <div class="track">
+                <div class="symbol emerald">EMRLD</div>
+                <div class="symbol bar">BAR</div>
+                <div class="symbol gold">BELL</div>
+                <div class="symbol seven">7</div>
+                <div class="symbol ruby">RUBY</div>
+                <div class="symbol star">★</div>
+                <div class="symbol emerald">EMRLD</div>
+                <div class="symbol bar">BAR</div>
+              </div>
+            </div>
+
+            <!-- Reel 5 -->
+            <div class="reel">
+              <div class="track">
+                <div class="symbol star">★</div>
+                <div class="symbol emerald">EMRLD</div>
+                <div class="symbol seven">7</div>
+                <div class="symbol gold">BELL</div>
+                <div class="symbol bar">BAR</div>
+                <div class="symbol ruby">RUBY</div>
+                <div class="symbol star">★</div>
+                <div class="symbol emerald">EMRLD</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div
+        style="
+          margin-top: 10px;
+          text-align: center;
+          color: var(--muted);
+          font-size: 13px;
+        "
+      >
+        Visual demo only — no JS, no RNG. Glass edges use inset shadows for
+        clean content flow, per best practices discussed at tyleo’s article on
+        frosted glass UIs [tyleo.com](https://www.tyleo.com/html-glass.html).
+        Maker‑style backlit tile vibe inspired by LED matrix builds
+        [adafruit.com](https://blog.adafruit.com/2020/08/06/glass-tiles-matrix-for-sk6812-pcbs-3dthursday-3dprinting),
+        and grid tiling aesthetics common in small LED arrays
+        [github.com](https://github.com/xdesig/5x5_NeoPixel_2020).
+      </div>
+    </div>
+  </body>
+</html>

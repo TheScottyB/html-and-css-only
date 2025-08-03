@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0"
+    />
+    <title>Contact Card</title>
+    <style>
+      :root {
+        --gray-50: #f9fafb;
+        --gray-100: #f3f4f6;
+        --gray-200: #e5e7eb;
+        --gray-400: #9ca3af;
+        --gray-700: #374151;
+        --gray-800: #1f2937;
+
+        --blue-50: #eff6ff;
+        --blue-600: #2563eb;
+        --blue-800: #1e40af;
+
+        --green-50: #ecfdf5;
+        --green-800: #065f46;
+
+        --purple-50: #f5f3ff;
+        --purple-700: #6d28d9;
+
+        --yellow-50: #fffbeb;
+        --yellow-800: #92400e;
+
+        --white: #ffffff;
+      }
+
+      /* Utility-like classes (converted from Tailwind) */
+      .container {
+        max-width: 42rem; /* ~max-w-2xl */
+        margin: 0 auto;
+        padding: 1.5rem; /* p-6 */
+      }
+
+      .card {
+        background: var(--white);
+        border-radius: 0.5rem;
+        box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1),
+          0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        padding: 1.5rem;
+        margin-bottom: 2rem;
+      }
+
+      .title {
+        font-size: 1.875rem; /* text-3xl */
+        line-height: 2.25rem;
+        font-weight: 700;
+        text-align: center;
+        color: var(--gray-800);
+        margin-bottom: 1.5rem;
+      }
+
+      .inner-card {
+        background: var(--white);
+        border-radius: 0.5rem;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06),
+          0 1px 2px rgba(0, 0, 0, 0.05);
+        padding: 1.5rem;
+      }
+
+      .header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 1rem;
+        padding-bottom: 0.75rem;
+        border-bottom: 1px solid var(--gray-200);
+      }
+
+      .header-left {
+        display: flex;
+        align-items: center;
+      }
+
+      .avatar {
+        width: 5rem;
+        height: 5rem;
+        border-radius: 9999px;
+        background: var(--gray-200);
+        color: var(--gray-400);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-right: 1rem;
+        font-weight: 500;
+      }
+
+      .name {
+        font-size: 1.5rem; /* text-2xl */
+        line-height: 2rem;
+        font-weight: 700;
+        color: var(--gray-800);
+      }
+
+      .title-group {
+        background: var(--gray-50);
+        padding: 0.75rem;
+        border-radius: 0.5rem;
+        margin-bottom: 1rem;
+      }
+
+      .title-group p {
+        margin: 0.25rem 0;
+        font-size: 1.125rem; /* text-lg */
+        line-height: 1.75rem;
+        font-weight: 500;
+        color: #374151; /* text-gray-700 */
+      }
+
+      .credentials {
+        background: var(--purple-50);
+        padding: 0.75rem;
+        border-radius: 0.5rem;
+        margin-bottom: 1rem;
+      }
+
+      .credentials p {
+        margin: 0.25rem 0;
+        font-size: 0.875rem; /* text-sm */
+        line-height: 1.25rem;
+      }
+
+      .credentials .label {
+        font-weight: 600;
+      }
+
+      .credentials .certs {
+        color: var(--purple-700);
+        font-weight: 600;
+      }
+
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 1rem;
+        margin-bottom: 1rem;
+      }
+
+      .phone-card {
+        background: var(--blue-50);
+        padding: 0.75rem;
+        border-radius: 0.5rem;
+      }
+
+      .online-card {
+        background: var(--green-50);
+        padding: 0.75rem;
+        border-radius: 0.5rem;
+      }
+
+      .section-title {
+        font-weight: 600;
+        margin-bottom: 0.5rem;
+      }
+
+      .section-title.blue {
+        color: var(--blue-800);
+      }
+
+      .section-title.green {
+        color: var(--green-800);
+      }
+
+      .section-title.yellow {
+        color: var(--yellow-800);
+      }
+
+      .space-y > * + * {
+        margin-top: 0.25rem;
+      }
+
+      .phone-row {
+        display: flex;
+        align-items: center;
+      }
+
+      .phone-label {
+        font-size: 0.75rem;
+        line-height: 1rem;
+        font-weight: 700;
+        color: #6b7280; /* text-gray-500 */
+        width: 1.5rem; /* w-6 */
+        display: inline-block;
+      }
+
+      .phone-number {
+        color: var(--gray-800);
+      }
+
+      .link {
+        display: block;
+        color: var(--blue-600);
+        text-decoration: none;
+      }
+
+      .link:hover {
+        text-decoration: underline;
+      }
+
+      .address {
+        background: var(--yellow-50);
+        padding: 0.75rem;
+        border-radius: 0.5rem;
+      }
+
+      .address p {
+        margin: 0.125rem 0;
+        color: var(--gray-700);
+      }
+
+      /* Simple responsive tweak */
+      @media (max-width: 640px) {
+        .grid {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container card">
+      <h2 class="title">Ready to start? Contact us today!</h2>
+
+      <div class="inner-card">
+        <div class="header">
+          <div class="header-left">
+            <div class="avatar">Photo</div>
+            <div>
+              <h3 class="name">Dawn Zurick</h3>
+            </div>
+          </div>
+          <img src="/api/placeholder/100/40" alt="Vylla Logo" />
+        </div>
+
+        <div class="title-group">
+          <p>Managing Broker (IL) / Broker (WI)</p>
+          <p>Team Lead / Regional Administrator</p>
+        </div>
+
+        <div class="credentials">
+          <p class="label">
+            <span class="label">Certifications:</span>
+            <span class="certs"> e-PRO, GRI, SFR, SRS, CNE, BPO &amp; CRB</span>
+          </p>
+          <p>
+            <span class="label">Licensed in:</span> IL/WI
+          </p>
+        </div>
+
+        <div class="grid">
+          <div class="phone-card">
+            <h4 class="section-title blue">Phone</h4>
+            <div class="space-y">
+              <div class="phone-row">
+                <span class="phone-label">C</span>
+                <span class="phone-number">847-287-1148</span>
+              </div>
+              <div class="phone-row">
+                <span class="phone-label">O</span>
+                <span class="phone-number">773-550-2729</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="online-card">
+            <h4 class="section-title green">Online</h4>
+            <div class="space-y">
+              <a
+                class="link"
+                href="mailto:dawn.zurick@vylla.com"
+                >dawn.zurick@vylla.com</a
+              >
+              <a class="link" href="https://vylla.com">Vylla Home</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="address">
+          <h4 class="section-title yellow">Office Location</h4>
+          <p>1827 Walden Office Square, Suite 325</p>
+          <p>Schaumburg, IL 60173</p>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
