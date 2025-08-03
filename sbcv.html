@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Scott Beilfuss · AI/Cloud Engineering Leader</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="Scott Beilfuss — AI/Cloud Engineering Leader with 25+ years building secure, scalable systems, founding startups, and delivering generative AI solutions."
+    />
+    <style>
+      :root {
+        --bg: #0b0d12;
+        --panel: #0f1219;
+        --ink: #eaf0f6;
+        --muted: #a9b6c6;
+        --soft: #c9d4e1;
+        --brand: #67d2ff; /* ocean accent */
+        --brand-2: #8df7cf; /* mint accent */
+        --line: rgba(255, 255, 255, 0.08);
+        --glow: rgba(103, 210, 255, 0.25);
+      }
+
+      /* Base */
+      * {
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        height: 100%;
+      }
+      body {
+        margin: 0;
+        color: var(--ink);
+        background: radial-gradient(
+            1000px 600px at 8% 0%,
+            #0f1823,
+            transparent 60%
+          ),
+          radial-gradient(1200px 800px at 100% 100%, #0b1220, transparent 60%),
+          var(--bg);
+        font: 16px/1.6 ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto,
+          "Helvetica Neue", Arial;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+      }
+
+      a {
+        color: var(--brand);
+        text-decoration: none;
+      }
+      a:hover {
+        opacity: 0.9;
+        text-decoration: underline;
+      }
+
+      .wrap {
+        max-width: 960px;
+        margin: 48px auto;
+        padding: 0 20px;
+      }
+
+      /* Header */
+      header {
+        display: grid;
+        grid-template-columns: 1.2fr 0.8fr;
+        gap: 28px;
+        align-items: center;
+        background: linear-gradient(
+          180deg,
+          rgba(255, 255, 255, 0.03),
+          rgba(255, 255, 255, 0.01)
+        );
+        border: 1px solid var(--line);
+        border-radius: 16px;
+        padding: 28px;
+        box-shadow: 0 18px 48px rgba(0, 0, 0, 0.35),
+          0 0 0 1px rgba(255, 255, 255, 0.02) inset;
+        position: relative;
+        overflow: hidden;
+      }
+      header::after {
+        content: "";
+        position: absolute;
+        inset: -2px;
+        border-radius: 18px;
+        background: radial-gradient(
+            600px 220px at 20% -10%,
+            rgba(103, 210, 255, 0.25),
+            transparent 60%
+          ),
+          radial-gradient(
+            600px 200px at 120% 120%,
+            rgba(141, 247, 207, 0.2),
+            transparent 70%
+          );
+        filter: blur(20px);
+        pointer-events: none;
+        mix-blend-mode: screen;
+      }
+
+      h1 {
+        margin: 0 0 6px;
+        font-size: clamp(26px, 3.2vw, 38px);
+        line-height: 1.15;
+        letter-spacing: 0.3px;
+      }
+      .title {
+        margin: 0 0 8px;
+        color: var(--soft);
+        font-weight: 600;
+        letter-spacing: 0.25px;
+      }
+      .lead {
+        margin: 8px 0 0;
+        color: var(--muted);
+      }
+
+      .contact {
+        display: grid;
+        gap: 8px;
+        justify-content: start;
+        font-size: 14px;
+        color: var(--soft);
+      }
+      .badge {
+        display: inline-block;
+        padding: 2px 8px;
+        border-radius: 999px;
+        font-size: 12px;
+        letter-spacing: 0.2px;
+        color: #0a1218;
+        background: linear-gradient(90deg, var(--brand), var(--brand-2));
+        box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.2) inset,
+          0 8px 20px var(--glow);
+      }
+
+      /* Sections */
+      section {
+        margin-top: 28px;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 24px;
+      }
+      .panel {
+        background: var(--panel);
+        border: 1px solid var(--line);
+        border-radius: 14px;
+        padding: 20px;
+        box-shadow: 0 12px 30px rgba(0, 0, 0, 0.35),
+          0 0 0 1px rgba(255, 255, 255, 0.02) inset;
+      }
+      h2 {
+        margin: 0 0 12px;
+        font-size: 16px;
+        letter-spacing: 0.18px;
+        text-transform: uppercase;
+        color: var(--soft);
+      }
+      .hr {
+        height: 1px;
+        background: var(--line);
+        margin: 12px 0 16px;
+      }
+
+      /* Lists */
+      ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+      }
+      .chiplist {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+      }
+      .chip {
+        padding: 6px 10px;
+        border: 1px solid var(--line);
+        border-radius: 10px;
+        color: var(--soft);
+        background: linear-gradient(
+          180deg,
+          rgba(255, 255, 255, 0.02),
+          rgba(0, 0, 0, 0.15)
+        );
+        font-size: 13px;
+      }
+
+      /* Experience items */
+      .item {
+        margin-bottom: 16px;
+      }
+      .item h3 {
+        margin: 0;
+        font-size: 15px;
+      }
+      .meta {
+        color: var(--muted);
+        font-size: 13px;
+        margin-top: 2px;
+      }
+      .bullets {
+        margin-top: 8px;
+        display: grid;
+        gap: 6px;
+        color: var(--soft);
+        font-size: 14px;
+      }
+      .bullets li {
+        position: relative;
+        padding-left: 18px;
+      }
+      .bullets li::before {
+        content: "";
+        position: absolute;
+        left: 0;
+        top: 0.53em;
+        width: 8px;
+        height: 8px;
+        border-radius: 999px;
+        background: linear-gradient(90deg, var(--brand), var(--brand-2));
+        box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.2);
+      }
+
+      /* Two-up feature block */
+      .feature {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 16px;
+        margin-top: 8px;
+      }
+      .callout {
+        border: 1px dashed var(--line);
+        border-radius: 12px;
+        padding: 12px;
+        background: linear-gradient(
+          180deg,
+          rgba(255, 255, 255, 0.02),
+          rgba(0, 0, 0, 0.12)
+        );
+        color: var(--soft);
+        font-size: 14px;
+      }
+
+      footer {
+        text-align: center;
+        color: var(--muted);
+        font-size: 13px;
+        margin: 26px 0 6px;
+      }
+
+      @media (max-width: 860px) {
+        header {
+          grid-template-columns: 1fr;
+          padding: 22px;
+        }
+        section {
+          grid-template-columns: 1fr;
+        }
+        .feature {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="wrap">
+      <header>
+        <div>
+          <h1>Scott Beilfuss</h1>
+          <p class="title">
+            AI/Cloud Engineering Leader · Security Architecture · Startup
+            Founder
+          </p>
+          <p class="lead">
+            25+ years building secure, scalable systems and products across AI,
+            cloud, and network security. Advocate for zero‑trust architectures
+            and pragmatic innovation that ships.
+          </p>
+        </div>
+        <div class="contact">
+          <span class="badge">Open to High‑Impact Builds</span>
+          <div>Harvard, Illinois, United States</div>
+          <div>
+            <a href="tel:+12243394908">224‑339‑4908</a> ·
+            <a href="mailto:scottybe@rbdstud.io">scottybe@rbdstud.io</a>
+          </div>
+          <div>
+            <a
+              href="https://www.linkedin.com/in/thescottybe."
+              target="_blank"
+              rel="noopener"
+              >linkedin.com/in/thescottybe.</a
+            >
+          </div>
+          <div>10325 N Main St, Richmond IL 60071</div>
+        </div>
+      </header>
+
+      <section>
+        <!-- Summary / Impact -->
+        <div class="panel">
+          <h2>Summary</h2>
+          <div class="hr"></div>
+          <p>
+            Versatile technology leader with deep experience in AI, cloud
+            (AWS/Azure/GCP), and zero‑trust security. Founded multiple
+            companies, authored provisional patents, and shipped generative‑AI
+            solutions that move the needle. Passionate about autonomous AI
+            assistants that act with agency and accountability.
+          </p>
+
+          <div class="feature">
+            <div class="callout">
+              <strong>Signature</strong><br />
+              Invented a cloud architecture to move/store cryptographic keys,
+              mitigating breach risk; led to multiple provisional patents.
+            </div>
+            <div class="callout">
+              <strong>Now</strong><br />
+              Building one‑off autonomous AI assistants and multi‑bot systems
+              that deliver real outcomes, not demos.
+            </div>
+          </div>
+        </div>
+
+        <!-- Core Skills -->
+        <div class="panel">
+          <h2>Core Skills</h2>
+          <div class="hr"></div>
+          <ul class="chiplist">
+            <li class="chip">Architecture Development</li>
+            <li class="chip">Zero‑Trust Security</li>
+            <li class="chip">Generative AI / LLMs</li>
+            <li class="chip">Machine Learning</li>
+            <li class="chip">AWS · IaC</li>
+            <li class="chip">Node.js · Python</li>
+            <li class="chip">Data Platforms</li>
+            <li class="chip">Systems Integration</li>
+          </ul>
+        </div>
+      </section>
+
+      <section>
+        <!-- Experience Highlights -->
+        <div class="panel">
+          <h2>Selected Experience</h2>
+          <div class="hr"></div>
+
+          <div class="item">
+            <h3>TBDstud.io · Founder, Managing Partner</h3>
+            <div class="meta">Oct 2024 – Present · Chicago, IL</div>
+            <ul class="bullets">
+              <li>
+                Deploying bespoke autonomous AI assistants; shipping multi‑bot
+                systems with real‑world utility.
+              </li>
+              <li>
+                Applying zero‑trust patterns end‑to‑end—from browser DOM to
+                databases.
+              </li>
+            </ul>
+          </div>
+
+          <div class="item">
+            <h3>Avallon Technologies · VP of Engineering</h3>
+            <div class="meta">Mar 2021 – Jan 2024 · Chicago, IL</div>
+            <ul class="bullets">
+              <li>
+                Led LLM tuning and generative AI productization; turned concepts
+                into launchable products.
+              </li>
+              <li>
+                Built a culture of delivery and experimentation across
+                cross‑functional teams.
+              </li>
+            </ul>
+          </div>
+
+          <div class="item">
+            <h3>
+              Better Homes & Gardens RE Star Homes · PE, Systems Integration &
+              Data
+            </h3>
+            <div class="meta">Oct 2020 – Jan 2024 · Grayslake, IL</div>
+            <ul class="bullets">
+              <li>
+                Engineered AI agents for monitoring, summarizing, cleaning, and
+                alerting—fully autonomous workflows.
+              </li>
+              <li>
+                Customized CRM with JS/Python/MongoDB; integrated tuned LLMs and
+                ML models.
+              </li>
+            </ul>
+          </div>
+
+          <div class="item">
+            <h3>3batdrone, LLC · Co‑Founder, Producer, DevOps</h3>
+            <div class="meta">Jan 2014 – Dec 2018 · Chicago, IL</div>
+            <ul class="bullets">
+              <li>
+                Multi‑Docker microservices on AWS Elastic Beanstalk;
+                PostgreSQL/MongoDB persistence across scaling.
+              </li>
+              <li>
+                CI/CD, cost‑optimized data layers (GCP Datastore, S3) and
+                multi‑platform app releases.
+              </li>
+            </ul>
+          </div>
+
+          <div class="item">
+            <h3>Motorola Solutions · Senior Software Engineering</h3>
+            <div class="meta">Jun 1997 – Nov 2007 · Schaumburg, IL</div>
+            <ul class="bullets">
+              <li>
+                Systems & integration for cellular infrastructure; automated
+                test platforms; customer‑driven delivery.
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Achievements / Expertise -->
+        <div class="panel">
+          <h2>Achievements & Expertise</h2>
+          <div class="hr"></div>
+          <ul class="bullets">
+            <li>
+              Founded three startups; took products from concept to significant
+              market presence.
+            </li>
+            <li>
+              Provisional patents in cloud security and data movement for
+              cryptographic keys.
+            </li>
+            <li>
+              Deployed AI with AutoGen, GPT‑4 APIs, multi‑agent orchestration,
+              and feedback loops for legacy NLP.
+            </li>
+            <li>
+              Built durable yet flexible architectures with IaC, eventing, and
+              pragmatic scalability.
+            </li>
+          </ul>
+
+          <div class="hr"></div>
+          <h2>Selected Technologies</h2>
+          <ul class="chiplist" style="margin-top: 10px">
+            <li class="chip">AWS</li>
+            <li class="chip">IaC</li>
+            <li class="chip">Node.js</li>
+            <li class="chip">Python</li>
+            <li class="chip">MongoDB</li>
+            <li class="chip">PostgreSQL</li>
+            <li class="chip">Kafka</li>
+            <li class="chip">TensorFlow</li>
+            <li class="chip">.NET</li>
+            <li class="chip">Linux</li>
+          </ul>
+        </div>
+      </section>
+
+      <section>
+        <!-- Education / Certs -->
+        <div class="panel">
+          <h2>Education</h2>
+          <div class="hr"></div>
+          <div class="item">
+            <h3>Illinois Institute of Technology</h3>
+            <div class="meta">
+              M.S., Computer Engineering · Aug 2004 – Aug 2006
+            </div>
+          </div>
+          <div class="item">
+            <h3>Grand Valley State University</h3>
+            <div class="meta">
+              B.E., Electrical Engineering · Jun 1995 – Jun 1999
+            </div>
+          </div>
+        </div>
+
+        <div class="panel">
+          <h2>Certification</h2>
+          <div class="hr"></div>
+          <div class="item">
+            <h3>Front‑End Web UI Frameworks and Tools: Bootstrap 4</h3>
+            <div class="meta">Coursera</div>
+          </div>
+        </div>
+      </section>
+
+      <footer>© 2025 Scott Beilfuss · Built with pure HTML & CSS</footer>
+    </div>
+  </body>
+</html>

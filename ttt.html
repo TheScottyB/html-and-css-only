@@ -1,0 +1,1063 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Real Estate & Mortgage Flip Cards</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+      :root {
+        --brand-accent: #d2a487;
+      }
+
+      /* Flip card */
+      .flip-card {
+        perspective: 1000px;
+        height: 560px;
+      }
+      @media (min-width: 768px) {
+        .flip-card {
+          height: 600px;
+        }
+      }
+
+      .flip-card-inner {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        transition: transform 0.6s;
+        transform-style: preserve-3d;
+      }
+      .flip-card:hover .flip-card-inner {
+        transform: rotateY(180deg);
+      }
+
+      .flip-face {
+        position: absolute;
+        inset: 0;
+        -webkit-backface-visibility: hidden;
+        backface-visibility: hidden;
+        border-radius: 0.875rem; /* rounded-xl-ish */
+        box-shadow: 0 8px 22px rgba(0, 0, 0, 0.08);
+        background: #fff;
+      }
+      .flip-back {
+        transform: rotateY(180deg);
+      }
+
+      /* Decorative */
+      .premier-logo {
+        font-family: "Brush Script MT", cursive;
+        color: var(--brand-accent);
+      }
+      .diagonal-stripes {
+        background-image: linear-gradient(
+          45deg,
+          #333 25%,
+          transparent 25%,
+          transparent 50%,
+          #333 50%,
+          #333 75%,
+          transparent 75%,
+          transparent
+        );
+        background-size: 12px 12px;
+        opacity: 0.06;
+      }
+      .premier-house-icon polygon {
+        fill: var(--brand-accent);
+      }
+
+      /* Contact card */
+      .contact-card {
+        transition: transform 0.25s ease, box-shadow 0.25s ease;
+      }
+      .contact-card:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 8px 18px rgba(0, 0, 0, 0.08);
+      }
+
+      /* Nav */
+      .card-nav-button {
+        transition: all 0.2s ease;
+        position: relative;
+      }
+      .card-nav-button.active {
+        font-weight: 600;
+        background: #fff;
+        border-bottom-color: transparent;
+        box-shadow: 0 -4px 10px rgba(0, 0, 0, 0.04);
+      }
+      .card-nav-button.active::after {
+        content: "";
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: -1px;
+        height: 2px;
+        background: #fff;
+      }
+
+      /* Card visibility */
+      .card-wrapper {
+        display: none;
+        opacity: 0;
+        transition: opacity 0.25s ease;
+      }
+      .card-wrapper.active {
+        display: block;
+        opacity: 1;
+      }
+    </style>
+  </head>
+  <body class="bg-gray-100 p-6 md:p-10">
+    <div class="mx-auto max-w-5xl">
+      <!-- Navigation -->
+      <nav class="flex justify-center mb-5">
+        <button
+          class="card-nav-button active px-4 md:px-6 py-2 md:py-3 mx-1 md:mx-2 rounded-t-lg bg-white border border-gray-200 border-b-0"
+          data-card="home-start"
+        >
+          Premier Home Start
+        </button>
+        <button
+          class="card-nav-button px-4 md:px-6 py-2 md:py-3 mx-1 md:mx-2 rounded-t-lg bg-gray-100 border border-gray-200 border-b-0"
+          data-card="va-loans"
+        >
+          VA Loans
+        </button>
+        <button
+          class="card-nav-button px-4 md:px-6 py-2 md:py-3 mx-1 md:mx-2 rounded-t-lg bg-gray-100 border border-gray-200 border-b-0"
+          data-card="conventional"
+        >
+          Conventional
+        </button>
+      </nav>
+
+      <!-- Cards -->
+      <section class="relative">
+        <!-- Premier Home Start -->
+        <article id="home-start" class="card-wrapper active">
+          <div class="flip-card w-full">
+            <div class="flip-card-inner">
+              <!-- Front -->
+              <div class="flip-face p-6 md:p-8">
+                <h1
+                  class="text-2xl md:text-3xl font-bold text-center text-gray-800 mb-8"
+                >
+                  Start your journey to homeownership today!
+                </h1>
+
+                <div class="space-y-6">
+                  <!-- Emelie -->
+                  <div
+                    class="contact-card p-4 rounded-lg border border-gray-200 flex flex-col sm:flex-row gap-4"
+                  >
+                    <div class="sm:w-32">
+                      <div
+                        class="w-28 h-28 sm:w-32 sm:h-32 bg-orange-100 rounded-md overflow-hidden flex items-center justify-center text-gray-400"
+                      >
+                        Photo
+                      </div>
+                    </div>
+                    <div class="flex-1 flex items-start justify-between gap-4">
+                      <div>
+                        <h2 class="text-2xl font-bold text-gray-800">
+                          Emelie Maybrook
+                        </h2>
+                        <p
+                          class="text-base md:text-lg font-medium text-gray-700 mb-1"
+                        >
+                          Branch Manager / Sr Loan Officer
+                          <span class="text-gray-400">|</span>
+                          <span class="text-gray-600">NMLS 389504</span>
+                        </p>
+                        <p class="mb-1 text-base md:text-lg">(312) 772-6850</p>
+                        <a
+                          href="mailto:emelie.maybrook@prmloans.com"
+                          class="text-blue-600 hover:underline mb-1 block"
+                          >emelie.maybrook@prmloans.com</a
+                        >
+                        <a
+                          href="https://www.prmloans.com/emaybrook"
+                          target="_blank"
+                          class="text-blue-600 hover:underline mb-1 block"
+                          >www.prmloans.com/emaybrook</a
+                        >
+                        <p class="mb-1 text-gray-700">
+                          1900 E. Golf Rd, Ste 950 - Office 4
+                        </p>
+                        <p class="text-gray-700">Schaumburg, IL 60173</p>
+                      </div>
+                      <div class="w-28 md:w-36 shrink-0">
+                        <svg
+                          viewBox="0 0 120 80"
+                          class="w-full h-auto"
+                          aria-label="Premier Mortgage Resources Logo"
+                        >
+                          <polygon
+                            points="60,10 75,25 90,10 105,25 90,40 75,25 60,40 45,25"
+                            class="premier-house-icon"
+                          />
+                          <text
+                            x="60"
+                            y="55"
+                            font-family="Arial"
+                            font-size="12"
+                            text-anchor="middle"
+                            font-weight="bold"
+                            fill="#444"
+                          >
+                            PREMIER
+                          </text>
+                          <text
+                            x="60"
+                            y="68"
+                            font-family="Arial"
+                            font-size="8"
+                            text-anchor="middle"
+                            fill="#444"
+                          >
+                            MORTGAGE RESOURCES
+                          </text>
+                        </svg>
+                      </div>
+                    </div>
+                  </div>
+
+                  <hr class="border-gray-200" />
+
+                  <!-- Dawn -->
+                  <div
+                    class="contact-card p-4 rounded-lg border border-gray-200 flex flex-col sm:flex-row gap-4"
+                  >
+                    <div class="sm:w-32">
+                      <div
+                        class="w-28 h-28 sm:w-32 sm:h-32 bg-orange-100 rounded-md overflow-hidden flex items-center justify-center text-gray-400"
+                      >
+                        Photo
+                      </div>
+                    </div>
+                    <div class="flex-1 flex items-start justify-between gap-4">
+                      <div>
+                        <h2 class="text-2xl font-bold text-gray-800">
+                          Dawn Zurick
+                        </h2>
+                        <p
+                          class="text-base md:text-lg font-medium text-gray-700 mb-1"
+                        >
+                          Broker/Manager <span class="text-gray-400">|</span>
+                          <span class="text-gray-600">471.009163</span>
+                        </p>
+                        <p class="mb-1 text-base md:text-lg">(847) 287-1148</p>
+                        <a
+                          href="mailto:dawn.zurick@vylla.com"
+                          class="text-blue-600 hover:underline mb-1 block"
+                          >dawn.zurick@vylla.com</a
+                        >
+                        <p class="mb-1 text-gray-700">1332 N Halsted St</p>
+                        <p class="text-gray-700">Chicago, IL 60642</p>
+                      </div>
+                      <div class="w-28 md:w-32 shrink-0">
+                        <div class="flex items-center">
+                          <div
+                            class="w-10 h-10 md:w-12 md:h-12 rounded-full bg-yellow-400"
+                          ></div>
+                          <span
+                            class="ml-2 font-bold text-xl md:text-2xl text-gray-700"
+                            >vylla</span
+                          >
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Footer -->
+                  <div class="mt-6 text-xs text-gray-600">
+                    <div class="flex items-start">
+                      <div
+                        class="w-6 h-6 md:w-8 md:h-8 mr-2 flex-shrink-0 text-gray-600"
+                      >
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          stroke-width="2"
+                          aria-hidden="true"
+                        >
+                          <path
+                            d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"
+                          />
+                          <polyline points="9 22 9 12 15 12 15 22" />
+                        </svg>
+                      </div>
+                      <p>
+                        © 2025 Premier Mortgage Resources, LLC (“PMR”) | NMLS
+                        #1169 www.nmlsconsumeraccess.org | Equal Housing
+                        Opportunity | Not an offer to extend credit or a
+                        commitment to lend. Terms subject to change without
+                        notice.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Back -->
+              <div class="flip-face flip-back">
+                <div class="flex flex-col md:flex-row h-full">
+                  <!-- Info -->
+                  <div class="md:w-7/12 p-6 md:p-7 md:pr-3">
+                    <div class="mb-6 md:mb-7">
+                      <div class="flex items-end">
+                        <div
+                          class="premier-logo text-4xl md:text-5xl font-bold"
+                        >
+                          Premier
+                        </div>
+                        <div
+                          class="ml-2 text-xl md:text-2xl font-bold uppercase tracking-wide"
+                        >
+                          HOME START
+                        </div>
+                      </div>
+                      <p class="mt-3 md:mt-4 font-medium text-center">
+                        We make your path to homeownership easier! Down payment
+                        assistance directly from Premier Mortgage Resources.
+                      </p>
+                    </div>
+
+                    <ul class="space-y-4">
+                      <li class="flex">
+                        <span class="mt-1 mr-3 w-3 h-3 bg-black"></span>
+                        <p class="text-base md:text-lg">
+                          <span class="font-semibold"
+                            >FHA 30-Year Fixed-Rate Mortgage</span
+                          >
+                          paired with
+                        </p>
+                      </li>
+                      <li class="flex">
+                        <span class="mt-1 mr-3 w-3 h-3 bg-black"></span>
+                        <div>
+                          <p class="font-semibold text-base md:text-lg">
+                            Down Payment Assistance (DPA):
+                          </p>
+                          <ul class="ml-5 list-disc text-sm md:text-base">
+                            <li>5% assistance</li>
+                            <li>
+                              10-year amortized term, fixed rate 2% higher than
+                              the first mortgage
+                            </li>
+                          </ul>
+                        </div>
+                      </li>
+                      <li class="flex">
+                        <span class="mt-1 mr-3 w-3 h-3 bg-black"></span>
+                        <p class="font-semibold text-base md:text-lg">
+                          No required borrower contribution
+                        </p>
+                      </li>
+                      <li class="flex">
+                        <span class="mt-1 mr-3 w-3 h-3 bg-black"></span>
+                        <p class="text-base md:text-lg">
+                          DPA amount is based on
+                          <span class="font-semibold"
+                            >purchase price or appraised value</span
+                          >, whichever is lower
+                        </p>
+                      </li>
+                      <li class="flex">
+                        <span class="mt-1 mr-3 w-3 h-3 bg-black"></span>
+                        <p class="text-base md:text-lg">
+                          Can be combined with
+                          <span class="font-semibold"
+                            >Mortgage Credit Certificates, grants, or other
+                            assistance programs</span
+                          >
+                        </p>
+                      </li>
+                    </ul>
+                  </div>
+
+                  <!-- Qualifies -->
+                  <aside class="relative md:w-5/12 bg-gray-50 p-6 md:p-7">
+                    <div
+                      class="absolute top-0 right-0 w-16 md:w-20 h-full diagonal-stripes"
+                    ></div>
+                    <div class="relative z-10">
+                      <h3 class="text-xl md:text-2xl font-bold mb-4 md:mb-6">
+                        Who Qualifies?
+                      </h3>
+                      <ul class="space-y-3 text-sm md:text-base">
+                        <li class="flex items-start">
+                          <span
+                            class="mt-1 mr-3 w-4 h-4 rounded-full border border-black"
+                          ></span
+                          ><span>Available nationwide (except New York)</span>
+                        </li>
+                        <li class="flex items-start">
+                          <span
+                            class="mt-1 mr-3 w-4 h-4 rounded-full border border-black"
+                          ></span
+                          ><span>Purchase only (no refinances)</span>
+                        </li>
+                        <li class="flex items-start">
+                          <span
+                            class="mt-1 mr-3 w-4 h-4 rounded-full border border-black"
+                          ></span
+                          ><span>No income limits</span>
+                        </li>
+                        <li class="flex items-start">
+                          <span
+                            class="mt-1 mr-3 w-4 h-4 rounded-full border border-black"
+                          ></span
+                          ><span>Minimum 600 FICO score</span>
+                        </li>
+                        <li class="flex items-start">
+                          <span
+                            class="mt-1 mr-3 w-4 h-4 rounded-full border border-black"
+                          ></span
+                          ><span>Loan-to-Value (LTV) 90% – 96.5%</span>
+                        </li>
+                        <li class="flex items-start">
+                          <span
+                            class="mt-1 mr-3 w-4 h-4 rounded-full border border-black"
+                          ></span>
+                          <div>
+                            <span>Eligible properties:</span>
+                            <ul class="ml-5 list-disc">
+                              <li>Primary residences (1–2 units)</li>
+                              <li>
+                                Single-family homes, PUDs, townhomes, condos,
+                                attached/detached
+                              </li>
+                            </ul>
+                          </div>
+                        </li>
+                      </ul>
+                    </div>
+                  </aside>
+                </div>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- VA Loans -->
+        <article id="va-loans" class="card-wrapper">
+          <div class="flip-card w-full">
+            <div class="flip-card-inner">
+              <!-- Front -->
+              <div class="flip-face p-6 md:p-8">
+                <h1
+                  class="text-2xl md:text-3xl font-bold text-center text-gray-800 mb-8"
+                >
+                  VA Loans for Veterans & Service Members
+                </h1>
+
+                <div class="space-y-6">
+                  <!-- Emelie -->
+                  <div
+                    class="contact-card p-4 rounded-lg border border-gray-200 flex flex-col sm:flex-row gap-4"
+                  >
+                    <div class="sm:w-32">
+                      <div
+                        class="w-28 h-28 sm:w-32 sm:h-32 bg-orange-100 rounded-md overflow-hidden flex items-center justify-center text-gray-400"
+                      >
+                        Photo
+                      </div>
+                    </div>
+                    <div class="flex-1 flex items-start justify-between gap-4">
+                      <div>
+                        <h2 class="text-2xl font-bold text-gray-800">
+                          Emelie Maybrook
+                        </h2>
+                        <p
+                          class="text-base md:text-lg font-medium text-gray-700 mb-1"
+                        >
+                          Branch Manager / Sr Loan Officer
+                          <span class="text-gray-400">|</span>
+                          <span class="text-gray-600">NMLS 389504</span>
+                        </p>
+                        <p class="mb-1 text-base md:text-lg">(312) 772-6850</p>
+                        <a
+                          href="mailto:emelie.maybrook@prmloans.com"
+                          class="text-blue-600 hover:underline mb-1 block"
+                          >emelie.maybrook@prmloans.com</a
+                        >
+                        <a
+                          href="https://www.prmloans.com/emaybrook"
+                          target="_blank"
+                          class="text-blue-600 hover:underline mb-1 block"
+                          >www.prmloans.com/emaybrook</a
+                        >
+                        <p class="mb-1 text-gray-700">
+                          1900 E. Golf Rd, Ste 950 - Office 4
+                        </p>
+                        <p class="text-gray-700">Schaumburg, IL 60173</p>
+                      </div>
+                      <div class="w-28 md:w-36 shrink-0">
+                        <svg
+                          viewBox="0 0 120 80"
+                          class="w-full h-auto"
+                          aria-label="Premier Mortgage Resources Logo"
+                        >
+                          <polygon
+                            points="60,10 75,25 90,10 105,25 90,40 75,25 60,40 45,25"
+                            class="premier-house-icon"
+                          />
+                          <text
+                            x="60"
+                            y="55"
+                            font-family="Arial"
+                            font-size="12"
+                            text-anchor="middle"
+                            font-weight="bold"
+                            fill="#444"
+                          >
+                            PREMIER
+                          </text>
+                          <text
+                            x="60"
+                            y="68"
+                            font-family="Arial"
+                            font-size="8"
+                            text-anchor="middle"
+                            fill="#444"
+                          >
+                            MORTGAGE RESOURCES
+                          </text>
+                        </svg>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Footer -->
+                  <div class="mt-6 text-xs text-gray-600">
+                    <div class="flex items-start">
+                      <div
+                        class="w-6 h-6 md:w-8 md:h-8 mr-2 flex-shrink-0 text-gray-600"
+                      >
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          stroke-width="2"
+                          aria-hidden="true"
+                        >
+                          <path
+                            d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"
+                          />
+                          <polyline points="9 22 9 12 15 12 15 22" />
+                        </svg>
+                      </div>
+                      <p>
+                        © 2025 Premier Mortgage Resources, LLC (“PMR”) | NMLS
+                        #1169 | Equal Housing Opportunity | PMR supports our
+                        military community with specialized VA loan options
+                        designed to honor your service.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Back -->
+              <div class="flip-face flip-back">
+                <div class="flex flex-col md:flex-row h-full">
+                  <!-- Info -->
+                  <div class="md:w-7/12 p-6 md:p-7 md:pr-3">
+                    <div class="mb-6 md:mb-7">
+                      <div class="flex items-end">
+                        <div
+                          class="premier-logo text-4xl md:text-5xl font-bold"
+                        >
+                          Premier
+                        </div>
+                        <div
+                          class="ml-2 text-xl md:text-2xl font-bold uppercase tracking-wide"
+                        >
+                          VA LOANS
+                        </div>
+                      </div>
+                      <p class="mt-3 md:mt-4 font-medium text-center">
+                        Specialized mortgage options for Veterans, Active Duty
+                        Service Members, and eligible spouses.
+                      </p>
+                    </div>
+
+                    <ul class="space-y-4">
+                      <li class="flex">
+                        <span class="mt-1 mr-3 w-3 h-3 bg-black"></span>
+                        <div>
+                          <p class="text-base md:text-lg font-semibold">
+                            No down payment required
+                          </p>
+                          <p class="text-sm md:text-base">
+                            100% financing available for qualified borrowers
+                          </p>
+                        </div>
+                      </li>
+                      <li class="flex">
+                        <span class="mt-1 mr-3 w-3 h-3 bg-black"></span>
+                        <div>
+                          <p class="text-base md:text-lg font-semibold">
+                            No private mortgage insurance (PMI)
+                          </p>
+                          <p class="text-sm md:text-base">
+                            Lower monthly payments compared to conventional
+                            loans
+                          </p>
+                        </div>
+                      </li>
+                      <li class="flex">
+                        <span class="mt-1 mr-3 w-3 h-3 bg-black"></span>
+                        <div>
+                          <p class="text-base md:text-lg font-semibold">
+                            Competitive interest rates
+                          </p>
+                          <p class="text-sm md:text-base">
+                            Often lower than conventional loan rates
+                          </p>
+                        </div>
+                      </li>
+                      <li class="flex">
+                        <span class="mt-1 mr-3 w-3 h-3 bg-black"></span>
+                        <div>
+                          <p class="text-base md:text-lg font-semibold">
+                            Limited closing costs
+                          </p>
+                          <p class="text-sm md:text-base">
+                            VA limits the closing costs veterans can pay
+                          </p>
+                        </div>
+                      </li>
+                      <li class="flex">
+                        <span class="mt-1 mr-3 w-3 h-3 bg-black"></span>
+                        <div>
+                          <p class="text-base md:text-lg font-semibold">
+                            No prepayment penalty
+                          </p>
+                          <p class="text-sm md:text-base">
+                            Pay off your loan early with no extra fees
+                          </p>
+                        </div>
+                      </li>
+                    </ul>
+                  </div>
+
+                  <!-- Eligibility -->
+                  <aside class="relative md:w-5/12 bg-gray-50 p-6 md:p-7">
+                    <div
+                      class="absolute top-0 right-0 w-16 md:w-20 h-full diagonal-stripes"
+                    ></div>
+                    <div class="relative z-10">
+                      <h3 class="text-xl md:text-2xl font-bold mb-4 md:mb-6">
+                        VA Loan Eligibility
+                      </h3>
+                      <ul class="space-y-3 text-sm md:text-base">
+                        <li class="flex items-start">
+                          <span
+                            class="mt-1 mr-3 w-4 h-4 rounded-full border border-black"
+                          ></span
+                          ><span
+                            >Veterans with 90+ days of wartime service</span
+                          >
+                        </li>
+                        <li class="flex items-start">
+                          <span
+                            class="mt-1 mr-3 w-4 h-4 rounded-full border border-black"
+                          ></span
+                          ><span
+                            >Veterans with 181+ days of peacetime service</span
+                          >
+                        </li>
+                        <li class="flex items-start">
+                          <span
+                            class="mt-1 mr-3 w-4 h-4 rounded-full border border-black"
+                          ></span
+                          ><span
+                            >Active-duty service members after 90 days</span
+                          >
+                        </li>
+                        <li class="flex items-start">
+                          <span
+                            class="mt-1 mr-3 w-4 h-4 rounded-full border border-black"
+                          ></span
+                          ><span>National Guard/Reserves with 6+ years</span>
+                        </li>
+                        <li class="flex items-start">
+                          <span
+                            class="mt-1 mr-3 w-4 h-4 rounded-full border border-black"
+                          ></span
+                          ><span>Surviving spouses of eligible veterans</span>
+                        </li>
+                        <li class="flex items-start">
+                          <span
+                            class="mt-1 mr-3 w-4 h-4 rounded-full border border-black"
+                          ></span>
+                          <div>
+                            <span>Required documents:</span>
+                            <ul class="ml-5 list-disc">
+                              <li>Certificate of Eligibility (COE)</li>
+                              <li>DD-214 (for veterans)</li>
+                              <li>Statement of Service (for active duty)</li>
+                            </ul>
+                          </div>
+                        </li>
+                      </ul>
+                    </div>
+                  </aside>
+                </div>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- Conventional -->
+        <article id="conventional" class="card-wrapper">
+          <div class="flip-card w-full">
+            <div class="flip-card-inner">
+              <!-- Front -->
+              <div class="flip-face p-6 md:p-8">
+                <h1
+                  class="text-2xl md:text-3xl font-bold text-center text-gray-800 mb-8"
+                >
+                  Conventional Mortgage Options
+                </h1>
+
+                <div class="space-y-6">
+                  <!-- Emelie -->
+                  <div
+                    class="contact-card p-4 rounded-lg border border-gray-200 flex flex-col sm:flex-row gap-4"
+                  >
+                    <div class="sm:w-32">
+                      <div
+                        class="w-28 h-28 sm:w-32 sm:h-32 bg-orange-100 rounded-md overflow-hidden flex items-center justify-center text-gray-400"
+                      >
+                        Photo
+                      </div>
+                    </div>
+                    <div class="flex-1 flex items-start justify-between gap-4">
+                      <div>
+                        <h2 class="text-2xl font-bold text-gray-800">
+                          Emelie Maybrook
+                        </h2>
+                        <p
+                          class="text-base md:text-lg font-medium text-gray-700 mb-1"
+                        >
+                          Branch Manager / Sr Loan Officer
+                          <span class="text-gray-400">|</span>
+                          <span class="text-gray-600">NMLS 389504</span>
+                        </p>
+                        <p class="mb-1 text-base md:text-lg">(312) 772-6850</p>
+                        <a
+                          href="mailto:emelie.maybrook@prmloans.com"
+                          class="text-blue-600 hover:underline mb-1 block"
+                          >emelie.maybrook@prmloans.com</a
+                        >
+                        <a
+                          href="https://www.prmloans.com/emaybrook"
+                          target="_blank"
+                          class="text-blue-600 hover:underline mb-1 block"
+                          >www.prmloans.com/emaybrook</a
+                        >
+                        <p class="mb-1 text-gray-700">
+                          1900 E. Golf Rd, Ste 950 - Office 4
+                        </p>
+                        <p class="text-gray-700">Schaumburg, IL 60173</p>
+                      </div>
+                      <div class="w-28 md:w-36 shrink-0">
+                        <svg
+                          viewBox="0 0 120 80"
+                          class="w-full h-auto"
+                          aria-label="Premier Mortgage Resources Logo"
+                        >
+                          <polygon
+                            points="60,10 75,25 90,10 105,25 90,40 75,25 60,40 45,25"
+                            class="premier-house-icon"
+                          />
+                          <text
+                            x="60"
+                            y="55"
+                            font-family="Arial"
+                            font-size="12"
+                            text-anchor="middle"
+                            font-weight="bold"
+                            fill="#444"
+                          >
+                            PREMIER
+                          </text>
+                          <text
+                            x="60"
+                            y="68"
+                            font-family="Arial"
+                            font-size="8"
+                            text-anchor="middle"
+                            fill="#444"
+                          >
+                            MORTGAGE RESOURCES
+                          </text>
+                        </svg>
+                      </div>
+                    </div>
+                  </div>
+
+                  <hr class="border-gray-200" />
+
+                  <!-- Dawn -->
+                  <div
+                    class="contact-card p-4 rounded-lg border border-gray-200 flex flex-col sm:flex-row gap-4"
+                  >
+                    <div class="sm:w-32">
+                      <div
+                        class="w-28 h-28 sm:w-32 sm:h-32 bg-orange-100 rounded-md overflow-hidden flex items-center justify-center text-gray-400"
+                      >
+                        Photo
+                      </div>
+                    </div>
+                    <div class="flex-1 flex items-start justify-between gap-4">
+                      <div>
+                        <h2 class="text-2xl font-bold text-gray-800">
+                          Dawn Zurick
+                        </h2>
+                        <p
+                          class="text-base md:text-lg font-medium text-gray-700 mb-1"
+                        >
+                          Broker/Manager <span class="text-gray-400">|</span>
+                          <span class="text-gray-600">471.009163</span>
+                        </p>
+                        <p class="mb-1 text-base md:text-lg">(847) 287-1148</p>
+                        <a
+                          href="mailto:dawn.zurick@vylla.com"
+                          class="text-blue-600 hover:underline mb-1 block"
+                          >dawn.zurick@vylla.com</a
+                        >
+                        <p class="mb-1 text-gray-700">1332 N Halsted St</p>
+                        <p class="text-gray-700">Chicago, IL 60642</p>
+                      </div>
+                      <div class="w-28 md:w-32 shrink-0">
+                        <div class="flex items-center">
+                          <div
+                            class="w-10 h-10 md:w-12 md:h-12 rounded-full bg-yellow-400"
+                          ></div>
+                          <span
+                            class="ml-2 font-bold text-xl md:text-2xl text-gray-700"
+                            >vylla</span
+                          >
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Footer -->
+                  <div class="mt-6 text-xs text-gray-600">
+                    <div class="flex items-start">
+                      <div
+                        class="w-6 h-6 md:w-8 md:h-8 mr-2 flex-shrink-0 text-gray-600"
+                      >
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          stroke-width="2"
+                          aria-hidden="true"
+                        >
+                          <path
+                            d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"
+                          />
+                          <polyline points="9 22 9 12 15 12 15 22" />
+                        </svg>
+                      </div>
+                      <p>
+                        © 2025 Premier Mortgage Resources, LLC (“PMR”) | NMLS
+                        #1169 www.nmlsconsumeraccess.org | Equal Housing
+                        Opportunity | Not an offer to extend credit or a
+                        commitment to lend. Terms subject to change without
+                        notice.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Back -->
+              <div class="flip-face flip-back">
+                <div class="flex flex-col md:flex-row h-full">
+                  <!-- Info -->
+                  <div class="md:w-7/12 p-6 md:p-7 md:pr-3">
+                    <div class="mb-6 md:mb-7">
+                      <div class="flex items-end">
+                        <div
+                          class="premier-logo text-4xl md:text-5xl font-bold"
+                        >
+                          Premier
+                        </div>
+                        <div
+                          class="ml-2 text-xl md:text-2xl font-bold uppercase tracking-wide"
+                        >
+                          CONVENTIONAL
+                        </div>
+                      </div>
+                      <p class="mt-3 md:mt-4 font-medium text-center">
+                        Flexible mortgage options with competitive rates for
+                        well-qualified buyers.
+                      </p>
+                    </div>
+
+                    <ul class="space-y-4">
+                      <li class="flex">
+                        <span class="mt-1 mr-3 w-3 h-3 bg-black"></span>
+                        <p class="text-base md:text-lg">
+                          <span class="font-semibold"
+                            >Fixed-rate & adjustable-rate</span
+                          >
+                          options available
+                        </p>
+                      </li>
+                      <li class="flex">
+                        <span class="mt-1 mr-3 w-3 h-3 bg-black"></span>
+                        <div>
+                          <p class="font-semibold text-base md:text-lg">
+                            Down payment options:
+                          </p>
+                          <ul class="ml-5 list-disc text-sm md:text-base">
+                            <li>As low as 3% for first-time homebuyers</li>
+                            <li>Standard 5% minimum down payment</li>
+                            <li>20% down to avoid mortgage insurance</li>
+                          </ul>
+                        </div>
+                      </li>
+                      <li class="flex">
+                        <span class="mt-1 mr-3 w-3 h-3 bg-black"></span>
+                        <div>
+                          <p class="font-semibold text-base md:text-lg">
+                            Loan limits up to $766,550 for single-family homes
+                          </p>
+                          <p class="text-sm md:text-base">
+                            (Higher in designated high-cost areas)
+                          </p>
+                        </div>
+                      </li>
+                      <li class="flex">
+                        <span class="mt-1 mr-3 w-3 h-3 bg-black"></span>
+                        <p class="text-base md:text-lg">
+                          PMI
+                          <span class="font-semibold">can be removed</span> once
+                          you reach 20% equity
+                        </p>
+                      </li>
+                      <li class="flex">
+                        <span class="mt-1 mr-3 w-3 h-3 bg-black"></span>
+                        <p class="text-base md:text-lg">
+                          Options for
+                          <span class="font-semibold"
+                            >vacation homes and investment properties</span
+                          >
+                        </p>
+                      </li>
+                    </ul>
+                  </div>
+
+                  <!-- Requirements -->
+                  <aside class="relative md:w-5/12 bg-gray-50 p-6 md:p-7">
+                    <div
+                      class="absolute top-0 right-0 w-16 md:w-20 h-full diagonal-stripes"
+                    ></div>
+                    <div class="relative z-10">
+                      <h3 class="text-xl md:text-2xl font-bold mb-4 md:mb-6">
+                        Requirements
+                      </h3>
+                      <ul class="space-y-3 text-sm md:text-base">
+                        <li class="flex items-start">
+                          <span
+                            class="mt-1 mr-3 w-4 h-4 rounded-full border border-black"
+                          ></span
+                          ><span
+                            >Credit score: 620+ minimum (higher scores qualify
+                            for better rates)</span
+                          >
+                        </li>
+                        <li class="flex items-start">
+                          <span
+                            class="mt-1 mr-3 w-4 h-4 rounded-full border border-black"
+                          ></span
+                          ><span>Debt-to-income ratio typically below 45%</span>
+                        </li>
+                        <li class="flex items-start">
+                          <span
+                            class="mt-1 mr-3 w-4 h-4 rounded-full border border-black"
+                          ></span
+                          ><span>Stable employment and income history</span>
+                        </li>
+                        <li class="flex items-start">
+                          <span
+                            class="mt-1 mr-3 w-4 h-4 rounded-full border border-black"
+                          ></span
+                          ><span
+                            >Clean credit history (limited late payments or
+                            collections)</span
+                          >
+                        </li>
+                        <li class="flex items-start">
+                          <span
+                            class="mt-1 mr-3 w-4 h-4 rounded-full border border-black"
+                          ></span
+                          ><span
+                            >Reserves for 2–6 months of mortgage payments</span
+                          >
+                        </li>
+                        <li class="flex items-start">
+                          <span
+                            class="mt-1 mr-3 w-4 h-4 rounded-full border border-black"
+                          ></span>
+                          <div>
+                            <span>Eligible properties:</span>
+                            <ul class="ml-5 list-disc">
+                              <li>Primary residences (1–4 units)</li>
+                              <li>Second homes</li>
+                              <li>Investment properties</li>
+                            </ul>
+                          </div>
+                        </li>
+                      </ul>
+                    </div>
+                  </aside>
+                </div>
+              </div>
+            </div>
+          </div>
+        </article>
+      </section>
+
+      <p class="text-center mt-4 text-sm text-gray-600">
+        Hover over the card to flip it
+      </p>
+    </div>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        const navButtons = document.querySelectorAll(".card-nav-button");
+        const cards = document.querySelectorAll(".card-wrapper");
+
+        function activate(id) {
+          cards.forEach((c) => c.classList.toggle("active", c.id === id));
+          navButtons.forEach((b) => {
+            const active = b.dataset.card === id;
+            b.classList.toggle("active", active);
+            b.classList.toggle("bg-white", active);
+            b.classList.toggle("bg-gray-100", !active);
+          });
+        }
+
+        navButtons.forEach((btn) => {
+          btn.addEventListener("click", () => activate(btn.dataset.card));
+        });
+      });
+    </script>
+  </body>
+</html>
